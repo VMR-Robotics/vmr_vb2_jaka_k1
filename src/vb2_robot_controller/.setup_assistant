@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: vb2_robot_description
+    relative_path: urdf/vb2_robot_urdf.urdf
+  srdf:
+    relative_path: config/vb2_robot_description.srdf
+  package_settings:
+    author_name: jing
+    author_email: jing@163.com
+    generated_timestamp: 1757141556

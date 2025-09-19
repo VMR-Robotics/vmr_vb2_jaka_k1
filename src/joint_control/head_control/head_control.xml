@@ -1,0 +1,9 @@
+<library path="head_control">
+  <class name="head_control/HeadSystemHardware"
+         type="head_control::HeadSystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+    HeadSystemHardware using a system hardware interface-type.
+    </description>
+  </class>
+</library>

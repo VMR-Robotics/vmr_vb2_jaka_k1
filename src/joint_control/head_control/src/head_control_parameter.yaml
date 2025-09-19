@@ -1,0 +1,16 @@
+head_control:
+  state_topic: {
+    type: string,
+    default_value: "default_yaobu_state",
+    description: "腰部关节的从本体发送的状态topic",
+  }
+  v_control_topic: {
+    type: string,
+    default_value: "default_yaobu_cmd_v",
+    description: "腰部关节发送到本体的速度控制topic",
+  }
+  p_control_topic: {
+    type: string,
+    default_value: "",
+    description: "腰部关节发送到本体的位置控制topic",
+  }

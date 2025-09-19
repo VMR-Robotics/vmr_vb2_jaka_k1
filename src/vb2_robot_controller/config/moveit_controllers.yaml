@@ -1,0 +1,28 @@
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+
+moveit_simple_controller_manager:
+  controller_names:
+    - left_arm_controller
+    - right_arm_controller
+
+  left_arm_controller:
+    type: FollowJointTrajectory
+    joints:
+      - l_j1
+      - l_j2
+      - l_j3
+      - l_j4
+      - l_j5
+      - l_j6
+      - l_j7
+
+  right_arm_controller:
+    type: FollowJointTrajectory
+    joints:
+      - r_j1
+      - r_j2
+      - r_j3
+      - r_j4
+      - r_j5
+      - r_j6
+      - r_j7
