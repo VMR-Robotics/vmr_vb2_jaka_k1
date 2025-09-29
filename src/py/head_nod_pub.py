@@ -65,12 +65,12 @@ class MotorController(Node):
                     self.reached_flags[i] = True
                     self.get_logger().info(f'关节{i} 已到达目标位置!')
             else:
-                all_reached = False
+                self.reached_flags[i] = False
 
         # 检查是否所有关节都到达
-        if all(self.reached_flags) and all_reached:
+        if all(self.reached_flags):
             self.get_logger().info("所有关节均已到达目标位置，程序即将退出")
-            rclpy.shutdown()  # 退出程序
+            exit(0)  # 退出程序
 
 def main(args=None):
     rclpy.init(args=args)
@@ -84,4 +84,4 @@ if __name__ == '__main__':
     main()
 
 # 运行指令
-# python3 head_nod_pub.py --ros-args -p target_position:="[3.1415926]" -p threshold:=0.1
+# python3 head_pose_pub.py --ros-args -p target_position:="[3.1415926]" -p threshold:=0.1

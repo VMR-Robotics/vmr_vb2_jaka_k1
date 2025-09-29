@@ -3,17 +3,19 @@ import rclpy
 from rclpy.node import Node
 from lx_motor_interfaces.msg import MotorStatus
 
+
 class MotorController(Node):
     def __init__(self):
         super().__init__('head_controller')
 
         # 声明参数
         self.declare_parameter('target_position', [0.0])  # 腰部俯仰运动范围[-0.785, 0.0]，舵机零位为0
-        self.declare_parameter('threshold', 0.01)    # 目标位置容错率
+        self.declare_parameter('threshold', 0.01)         # 目标位置容错率
 
         # 获取参数
-        self.target_positions = self.get_parameter('target_position').get_parameter_value().double_array_value
-        self.target_positions = list(self.target_positions) 
+        self.target_positions = list(
+            self.get_parameter('target_position').get_parameter_value().double_array_value
+        )
         self.threshold = self.get_parameter('threshold').get_parameter_value().double_value
 
         # 发布者
@@ -31,6 +33,7 @@ class MotorController(Node):
             10
         )
 
+        # 每个关节的到达标志
         self.reached_flags = [False] * len(self.target_positions)
 
         # 定时器：周期性发送目标
@@ -47,7 +50,7 @@ class MotorController(Node):
         for i, target in enumerate(self.target_positions):
             msg.mode[i] = 1
             msg.data[i] = target
-            
+
         self.control_pub.publish(msg)
 
     def state_callback(self, msg: MotorStatus):
@@ -65,12 +68,13 @@ class MotorController(Node):
                     self.reached_flags[i] = True
                     self.get_logger().info(f'关节{i} 已到达目标位置!')
             else:
-                all_reached = False
+                self.reached_flags[i] = False  # 如果偏差又大了，标记为未到达
 
         # 检查是否所有关节都到达
-        if all(self.reached_flags) and all_reached:
+        if all(self.reached_flags):
             self.get_logger().info("所有关节均已到达目标位置，程序即将退出")
-            rclpy.shutdown()  # 退出程序
+            exit(0)  # 退出程序
+
 
 def main(args=None):
     rclpy.init(args=args)
