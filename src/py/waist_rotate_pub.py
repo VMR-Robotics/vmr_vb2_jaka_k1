@@ -39,7 +39,7 @@ class MotorController(Node):
         # 定时器：周期性发送目标
         self.timer = self.create_timer(0.1, self.send_control_command)
 
-        self.get_logger().info(f'目标位置参数: {self.target_positions}, 阈值: {self.threshold}')
+        # self.get_logger().info(f'目标位置参数: {self.target_positions}, 阈值: {self.threshold}')
 
     def send_control_command(self):
         """发布目标位置"""
@@ -59,20 +59,20 @@ class MotorController(Node):
             current = msg.data[i]
             error = target - current
 
-            self.get_logger().info(
-                f'关节{i}: 当前={current:.2f}, 目标={target:.2f}, 偏差={error:.2f}'
-            )
+            # self.get_logger().info(
+            #     f'关节{i}: 当前={current:.2f}, 目标={target:.2f}, 偏差={error:.2f}'
+            # )
 
             if abs(error) < self.threshold:
                 if not self.reached_flags[i]:
                     self.reached_flags[i] = True
-                    self.get_logger().info(f'关节{i} 已到达目标位置!')
+                    # self.get_logger().info(f'关节{i} 已到达目标位置!')
             else:
                 self.reached_flags[i] = False  # 如果偏差又大了，标记为未到达
 
         # 检查是否所有关节都到达
         if all(self.reached_flags):
-            self.get_logger().info("所有关节均已到达目标位置，程序即将退出")
+            self.get_logger().info("Joint has reached target position!!!")
             exit(0)  # 退出程序
 
 
