@@ -6,7 +6,7 @@
     <ros2_control name="${name}_left_arm" type="system">
       <hardware>
         <plugin>mock_components/GenericSystem</plugin>
-        <!-- <plugin>waist_control/WasitSystemHardware</plugin>
+        <!-- <plugin>yaobu_control/YaoBuSystemHardware</plugin>
         <param name="state_topic">/jaka_left_arm_cmd</param>
         <param name="p_control_topic">jaka_left_arm_state</param> -->
       </hardware>
@@ -64,7 +64,7 @@
     <ros2_control name="${name}_right_arm" type="system">
       <hardware>
         <plugin>mock_components/GenericSystem</plugin>
-        <!-- <plugin>waist_control/WasitSystemHardware</plugin>
+        <!-- <plugin>yaobu_control/YaoBuSystemHardware</plugin>
         <param name="state_topic">/jaka_right_arm_cmd</param>
         <param name="p_control_topic">jaka_right_arm_state</param> -->
       </hardware>
@@ -154,7 +154,7 @@
     <ros2_control name="${name}_waist_rotate" type="system">
       <hardware>
         <!-- <plugin>mock_components/GenericSystem</plugin> -->
-        <plugin>waist_control/WasitSystemHardware</plugin>
+        <plugin>yaobu_control/YaoBuSystemHardware</plugin>
         <param name="state_topic">vmr/waist_joint_state</param>
         <param name="p_control_topic">vmr/waist_joint_control</param>
       </hardware>
@@ -170,7 +170,7 @@
     <ros2_control name="${name}_waist_lift" type="system">
       <hardware>
         <!-- <plugin>mock_components/GenericSystem</plugin> -->
-        <plugin>waist_control/WasitSystemHardware</plugin>
+        <plugin>yaobu_control/YaoBuSystemHardware</plugin>
         <param name="state_topic">vmr/robot_lift_join_state</param>
         <param name="p_control_topic">vmr/waist_lift_control</param>
       </hardware>
