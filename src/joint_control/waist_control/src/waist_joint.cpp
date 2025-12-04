@@ -1,4 +1,4 @@
-#include "yaobu_joint.hpp"
+#include "waist_joint.hpp"
 
 #include <chrono>
 #include <cmath>
@@ -14,15 +14,15 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-namespace yaobu_control {
+namespace waist_control {
 
 #define DEV_INFO(...) \
-  RCLCPP_INFO(rclcpp::get_logger("YaoBuSystemHardware"), __VA_ARGS__)
+  RCLCPP_INFO(rclcpp::get_logger("WasitSystemHardware"), __VA_ARGS__)
 
 #define DEV_FATAL(...) \
-  RCLCPP_INFO(rclcpp::get_logger("YaoBuSystemHardware"), __VA_ARGS__)
+  RCLCPP_INFO(rclcpp::get_logger("WasitSystemHardware"), __VA_ARGS__)
 
-hardware_interface::CallbackReturn YaoBuSystemHardware::on_init(
+hardware_interface::CallbackReturn WasitSystemHardware::on_init(
     const hardware_interface::HardwareInfo& info) {
   if (hardware_interface::SystemInterface::on_init(info) !=
       hardware_interface::CallbackReturn::SUCCESS) {
@@ -69,7 +69,7 @@ hardware_interface::CallbackReturn YaoBuSystemHardware::on_init(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::CallbackReturn YaoBuSystemHardware::read_configure(
+hardware_interface::CallbackReturn WasitSystemHardware::read_configure(
     const hardware_interface::HardwareInfo& info) {
   // Option 2: Load parameters in on_configure (Recommended)
 
@@ -145,7 +145,7 @@ hardware_interface::CallbackReturn YaoBuSystemHardware::read_configure(
 }
 
 std::vector<hardware_interface::StateInterface>
-YaoBuSystemHardware::export_state_interfaces() {
+WasitSystemHardware::export_state_interfaces() {
   std::vector<hardware_interface::StateInterface> state_interfaces;
   for (auto i = 0u; i < info_.joints.size(); i++) {
     state_interfaces.emplace_back(hardware_interface::StateInterface(
@@ -160,7 +160,7 @@ YaoBuSystemHardware::export_state_interfaces() {
 }
 
 std::vector<hardware_interface::CommandInterface>
-YaoBuSystemHardware::export_command_interfaces() {
+WasitSystemHardware::export_command_interfaces() {
   DEV_INFO("公布cmd:%ld", info_.joints.size());
   std::vector<hardware_interface::CommandInterface> command_interfaces;
   for (auto ci = 0u; ci < info_.joints.size(); ci++) {
@@ -177,7 +177,7 @@ YaoBuSystemHardware::export_command_interfaces() {
   return command_interfaces;
 }
 
-hardware_interface::CallbackReturn YaoBuSystemHardware::on_activate(
+hardware_interface::CallbackReturn WasitSystemHardware::on_activate(
     const rclcpp_lifecycle::State& /*previous_state*/) {
   // BEGIN: This part here is for exemplary purposes - Please do not copy to
   // your production code
@@ -237,7 +237,7 @@ hardware_interface::CallbackReturn YaoBuSystemHardware::on_activate(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::CallbackReturn YaoBuSystemHardware::on_deactivate(
+hardware_interface::CallbackReturn WasitSystemHardware::on_deactivate(
     const rclcpp_lifecycle::State& /*previous_state*/) {
   // BEGIN: This part here is for exemplary purposes - Please do not copy to
   // your production code
@@ -254,7 +254,7 @@ hardware_interface::CallbackReturn YaoBuSystemHardware::on_deactivate(
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
-hardware_interface::return_type yaobu_control::YaoBuSystemHardware::read(
+hardware_interface::return_type waist_control::WasitSystemHardware::read(
     const rclcpp::Time& /*time*/, const rclcpp::Duration& period) {
   std::shared_ptr<lx_motor_interfaces::msg::MotorStatus> fb_msg;
   received_fb_msg_ptr_.get(fb_msg);
@@ -266,7 +266,7 @@ hardware_interface::return_type yaobu_control::YaoBuSystemHardware::read(
   return hardware_interface::return_type::OK;
 }
 
-hardware_interface::return_type yaobu_control::YaoBuSystemHardware::write(
+hardware_interface::return_type waist_control::WasitSystemHardware::write(
     const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/) {
   if (cmd_.realtime_cmd_publisher_->trylock()) {
     auto& cmd_msg = cmd_.realtime_cmd_publisher_->msg_;
@@ -281,8 +281,8 @@ hardware_interface::return_type yaobu_control::YaoBuSystemHardware::write(
   return hardware_interface::return_type::OK;
 }
 
-}  // namespace yaobu_control
+}  // namespace waist_control
 
 #include "pluginlib/class_list_macros.hpp"
-PLUGINLIB_EXPORT_CLASS(yaobu_control::YaoBuSystemHardware,
+PLUGINLIB_EXPORT_CLASS(waist_control::WasitSystemHardware,
                        hardware_interface::SystemInterface)

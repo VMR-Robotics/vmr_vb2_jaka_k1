@@ -1,9 +1,0 @@
-<library path="yaobu_control">
-  <class name="yaobu_control/YaoBuSystemHardware"
-         type="yaobu_control::YaoBuSystemHardware"
-         base_class_type="hardware_interface::SystemInterface">
-    <description>
-    YaoBuSystemHardware using a system hardware interface-type.
-    </description>
-  </class>
-</library>

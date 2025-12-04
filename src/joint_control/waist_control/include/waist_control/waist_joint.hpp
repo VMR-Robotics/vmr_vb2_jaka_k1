@@ -22,38 +22,38 @@
 #include "std_msgs/msg/float64_multi_array.hpp"
 #include "lx_motor_interfaces/msg/motor_status.hpp"
 #include "visibility_control.h"
-#include "yaobu_control_parameters.hpp"
+#include "waist_control_parameters.hpp"
 
-namespace yaobu_control {
-class YaoBuSystemHardware : public hardware_interface::SystemInterface {
+namespace waist_control {
+class WaistSystemHardware : public hardware_interface::SystemInterface {
  public:
-  RCLCPP_SHARED_PTR_DEFINITIONS(YaoBuSystemHardware)
+  RCLCPP_SHARED_PTR_DEFINITIONS(WaistSystemHardware)
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   hardware_interface::CallbackReturn on_init(
       const hardware_interface::HardwareInfo& info) override;
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   std::vector<hardware_interface::StateInterface> export_state_interfaces()
       override;
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   std::vector<hardware_interface::CommandInterface> export_command_interfaces()
       override;
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   hardware_interface::CallbackReturn on_activate(
       const rclcpp_lifecycle::State& previous_state) override;
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   hardware_interface::CallbackReturn on_deactivate(
       const rclcpp_lifecycle::State& previous_state) override;
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   hardware_interface::return_type read(const rclcpp::Time& time,
                                        const rclcpp::Duration& period) override;
 
-  YAOBU_CONTROL_PUBLIC
+  WAIST_CONTROL_PUBLIC
   hardware_interface::return_type write(
       const rclcpp::Time& time, const rclcpp::Duration& period) override;
 
@@ -84,8 +84,8 @@ class YaoBuSystemHardware : public hardware_interface::SystemInterface {
 
 
   // Parameters from ROS for diff_test_controller
-  std::shared_ptr<yaobu_control::ParamListener> param_listener_;
-  yaobu_control::Params params_;
+  std::shared_ptr<waist_control::ParamListener> param_listener_;
+  waist_control::Params params_;
 };
 
-}  // namespace yaobu_control
+}  // namespace waist_control
