@@ -1,0 +1,9 @@
+<library path="waist_control">
+  <class name="waist_control/WaistSystemHardware"
+         type="waist_control::WaistSystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+    WaistSystemHardware using a system hardware interface-type.
+    </description>
+  </class>
+</library>

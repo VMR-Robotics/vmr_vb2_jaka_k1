@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(yaobu_control)
+project(外斯特_control)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -33,13 +33,13 @@ include_directories(
 # generate parameter listener hpp file
 #list(APPEND CMAKE_MODULE_PATH "/opt/ros/humble/share/generate_parameter_library/cmake")
 #find_package(generate_parameter_library REQUIRED)
-generate_parameter_library(yaobu_control_parameters src/yaobu_control_parameter.yaml)
+generate_parameter_library(waist_control_parameters src/waist_control_parameter.yaml)
 
 ## COMPILE
 add_library(
   ${PROJECT_NAME}
   SHARED
-  src/yaobu_joint.cpp
+  src/waist_joint.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
@@ -49,14 +49,14 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE "DIFF_TEST_CONTROL_BUILDING_D
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/yaobu_control>
-  $<INSTALL_INTERFACE:include/yaobu_control/yaobu_control>
+  $<INSTALL_INTERFACE:include/waist_control>
+  $<INSTALL_INTERFACE:include/waist_control/waist_control>
 )
 ament_target_dependencies(
   ${PROJECT_NAME} PUBLIC
   ${THIS_PACKAGE_INCLUDE_DEPENDS}
 )
-target_link_libraries(${PROJECT_NAME} PUBLIC yaobu_control_parameters)
+target_link_libraries(${PROJECT_NAME} PUBLIC waist_control_parameters)
 
 # Export hardware plugins
 pluginlib_export_plugin_description_file(hardware_interface ${PROJECT_NAME}.xml)
@@ -74,7 +74,7 @@ if(BUILD_TESTING)
 endif()
 
 
-install(TARGETS ${PROJECT_NAME} yaobu_control_parameters
+install(TARGETS ${PROJECT_NAME} waist_control_parameters
   EXPORT export_${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
